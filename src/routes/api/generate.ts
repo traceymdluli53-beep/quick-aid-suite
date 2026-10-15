@@ -18,7 +18,7 @@ export const Route = createFileRoute("/api/generate")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const body = (await request.json()) as Record<string, string>;
+        const body = (await request.json()) as { kind?: string; topic?: string; recipient?: string; points?: string; tone?: string; variation?: string; notes?: string };
         if (body.kind === "email") {
           const { topic, recipient, points, tone, variation } = body;
           if (!topic?.trim()) return Response.json({ error: "Please add a topic." }, { status: 400 });
