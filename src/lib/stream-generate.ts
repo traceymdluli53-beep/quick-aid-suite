@@ -8,7 +8,7 @@ export async function streamGenerate(
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-    signal,
+    signal: signal ?? null,
   });
   if (!res.ok || !res.body) {
     let msg = "Request failed. Please try again.";
