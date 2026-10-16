@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { WorkspaceProvider } from "@/lib/workspace";
 import { AppShell } from "@/components/AppShell";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -80,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SmartAssist AI" },
+      { title: "SmartWork AI Assistant" },
       { name: "description", content: "AI email writer, meeting notes summarizer and chatbot in one dashboard." },
     ],
     links: [
@@ -120,9 +121,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <AppShell>
+      <WorkspaceProvider><AppShell>
         <Outlet />
-      </AppShell>
+      </AppShell></WorkspaceProvider>
       <Toaster />
     </QueryClientProvider>
   );

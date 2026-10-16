@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as EmailRouteImport } from './routes/email'
+import { Route as LibraryRouteImport } from './routes/library'
 import { Route as SummarizerRouteImport } from './routes/summarizer'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiGenerateRouteImport } from './routes/api/generate'
@@ -29,6 +30,11 @@ const ChatRoute = ChatRouteImport.update({
 const EmailRoute = EmailRouteImport.update({
   id: '/email',
   path: '/email',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryRoute = LibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SummarizerRoute = SummarizerRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
   '/email': typeof EmailRoute
+  '/library': typeof LibraryRoute
   '/summarizer': typeof SummarizerRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate': typeof ApiGenerateRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
   '/email': typeof EmailRoute
+  '/library': typeof LibraryRoute
   '/summarizer': typeof SummarizerRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate': typeof ApiGenerateRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
   '/email': typeof EmailRoute
+  '/library': typeof LibraryRoute
   '/summarizer': typeof SummarizerRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate': typeof ApiGenerateRoute
@@ -75,14 +84,28 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/chat' | '/email' | '/summarizer' | '/api/chat' | '/api/generate'
+    | '/'
+    | '/chat'
+    | '/email'
+    | '/library'
+    | '/summarizer'
+    | '/api/chat'
+    | '/api/generate'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chat' | '/email' | '/summarizer' | '/api/chat' | '/api/generate'
+  to:
+    | '/'
+    | '/chat'
+    | '/email'
+    | '/library'
+    | '/summarizer'
+    | '/api/chat'
+    | '/api/generate'
   id:
     | '__root__'
     | '/'
     | '/chat'
     | '/email'
+    | '/library'
     | '/summarizer'
     | '/api/chat'
     | '/api/generate'
@@ -92,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ChatRoute: typeof ChatRoute
   EmailRoute: typeof EmailRoute
+  LibraryRoute: typeof LibraryRoute
   SummarizerRoute: typeof SummarizerRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiGenerateRoute: typeof ApiGenerateRoute
@@ -118,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/email'
       fullPath: '/email'
       preLoaderRoute: typeof EmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library': {
+      id: '/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof LibraryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/summarizer': {
@@ -148,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ChatRoute: ChatRoute,
   EmailRoute: EmailRoute,
+  LibraryRoute: LibraryRoute,
   SummarizerRoute: SummarizerRoute,
   ApiChatRoute: ApiChatRoute,
   ApiGenerateRoute: ApiGenerateRoute,
