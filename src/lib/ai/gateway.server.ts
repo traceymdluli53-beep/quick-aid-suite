@@ -9,7 +9,7 @@ import {
 const MODEL = "openai/gpt-6-astra";
 
 export function streamAi(request: Request, instructions: string, messages: ModelMessage[]) {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env['LOVABLE_API_KEY'];
   if (!apiKey) {
     return Response.json({ error: "AI is not configured on the server." }, { status: 500 });
   }
